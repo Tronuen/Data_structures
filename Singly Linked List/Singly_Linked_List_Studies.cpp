@@ -19,9 +19,9 @@ struct Node
 
 
 struct Node *add(Node *head, int number, char heads[20], char sons[30]);
-struct Node *duzenle(Node *head);
-struct Node *sil(Node *head, int number);
-void bosalt(char array1[20], char array2[30]);
+struct Node *edit(Node *head);
+struct Node *remove(Node *head, int number);
+void clear(char array1[20], char array2[30]);
 void selectionSort(int array[2][10]);
 
 
@@ -63,8 +63,8 @@ main()
 					number_of_numbers[1][i]++;
 					
 			selectionSort(number_of_numbers);
-			head = duzenle(head);
-			bosalt(name, surname);
+			head = edit(head);
+			clear(name, surname);
 			i=0;	j=0;	no=0;	space_ct=0;
 		}
 		else
@@ -110,10 +110,10 @@ main()
 		{
 			case 'a':
 				system("cls");
-				printf("\nSýrasýyla, addmek istediðiniz talebenin numarasýný nameýný ve surnameýný boþluk býrakarak giriniz:\n\n\t");
+				printf("\nPlease enter the number, name and surname of the student you want to add, leaving a space:\n\n\t");
 				do
 				{
-					bosalt(name,surname);
+					clear(name, surname);
 					i=0;	j=0;	no=0;	space_ct=0;
 					do
 					{
@@ -140,16 +140,17 @@ main()
 					if(choice_2==27)		break;
 					
 					head = add(head, number, name, surname);
+					
 					for(i=0;i<10;i++)
 						if(number_of_numbers[0][i]==number%10)
 							number_of_numbers[1][i]++;
 							
 					selectionSort(number_of_numbers);
-					head = duzenle(head);
-					bosalt(name, surname);
+					head = edit(head);
+					clear(name, surname);
 					i=0;	j=0;	no=0;	space_ct=0;
 					
-					printf("addndi\n \t");
+					printf("Added\n \t");
 					temp = head;
 					
 					number = 0;
@@ -163,12 +164,12 @@ main()
 				{
 					if(head==NULL)
 					{
-						printf("\n\tÝlk eleman bulunamnameý!\n");
+						printf("\n\tFirst element not found!\n");
 						getch();
 						break;
 					}
 					
-					printf("\nSilmek istediðiniz talebenin numarasýný giriniz: ");
+					printf("\nEnter the number of the student you want to delete ");
 					
 					do
 					{
@@ -179,13 +180,13 @@ main()
 					
 					if(choice_2==27)		break;
 					
-					head = sil(head, number);
+					head = remove(head, number);
 					for(i=0;i<10;i++)
 						if(number_of_numbers[0][i]==number%10)
 							number_of_numbers[1][i]--;
 							
 					selectionSort(number_of_numbers);
-					head = duzenle(head);
+					head = edit(head);
 					
 					number = 0;
 				}while(choice_2!=27);
@@ -198,12 +199,12 @@ main()
 				{
 					if(head==NULL)
 					{
-						printf("\n\tÝlk eleman bulunamnameý!");
+						printf("\n\tFirst element not found!");
 						getch();
 						break;
 					}
 					
-					printf("\nAramak istediðiniz talebenin numarasýný giriniz: ");
+					printf("\nEnter the number of the student you want to search: ");
 					
 					do
 					{
@@ -223,9 +224,9 @@ main()
 						temp = temp->next;
 					}
 					if(temp==NULL)
-						printf("\n\aArnameýðýnýz talebe bulunamnameý\n");
+						printf("\n\aThe student you are looking could not be found.\n");
 					else
-						printf("\nArnameýðýnýz talebe %d nameýmda bulundu = %d %s %s\n", s, temp->no, temp->name, temp->surname);
+						printf("\nThe student you are looking found at %d step = %d %s %s\n", s, temp->no, temp->name, temp->surname);
 					
 					s=0;	number=0;
 				}while(choice_2!=27);
@@ -238,7 +239,7 @@ main()
 				{
 					if(head==NULL)
 					{
-						printf("\n	Liste boþ!\n");
+						printf("\n	The list is empty!\n");
 						break;
 					}
 					
@@ -246,7 +247,7 @@ main()
 					
 					while(temp!=NULL)
 					{
-						printf("\n%d.eleman= %d %s %s", s+1, temp->no, temp->name, temp->surname);
+						printf("\n%d.element = %d %s %s", s+1, temp->no, temp->name, temp->surname);
 						s++;
 						temp = temp->next;
 					}
@@ -263,32 +264,32 @@ main()
 	}
 	
 	
-	file = fopen("Ödev-1.txt","w");
+	file = fopen("Students.txt", "w");
 	
 	if(file==NULL)
 	{
-		printf("\ntext filesý açýlamnameý!");
+		printf("\nCan't open text file!");
 		getch();
 		return 0;
 	}
 	
-	char numbermiz[10];
+	char my_number[10];
 	char *cp;
 	
 	temp = head;
 	do
 	{
 		for(i=0;i<10;i++)
-			numbermiz[i]=0;
+			my_number[i]=0;
 		i = 0;	
 		while(temp->no>0)
 		{
-			numbermiz[i] = temp->no%10 + 48;
+			my_number[i] = temp->no%10 + 48;
 			temp->no /= 10;
 			i++;
 		}
 		i--;
-		cp = &numbermiz[i];
+		cp = &my_number[i];
   		while(*cp)
   		{
     		fputc(*cp, file);
@@ -322,12 +323,12 @@ main()
 //**********************************************************************************************************************************************************
 
 
-struct Node *add(Node *head, int number, char heads[20], char sons[30])
+struct Node *add(Node *head, int number, char heads[20], char tails[30])
 {
 	Node *nevv = (struct Node*)malloc(sizeof(struct Node));
 	nevv->no = number;
 	strcpy(nevv->name, heads);
-	strcpy(nevv->surname, sons);
+	strcpy(nevv->surname, tails);
 	nevv->next = NULL;
 	
 	
@@ -350,34 +351,30 @@ struct Node *add(Node *head, int number, char heads[20], char sons[30])
 }
 
 
-struct Node *duzenle(Node *head)
+struct Node *edit(Node *head)
 {
 	int i;
 	Node *temp = head;
 	Node *head2 = NULL;
 	
-	
-		for(i=9;i>=0;i--)
+	for(i=9;i>=0;i--)
+	{
+		temp = head;
+		do
 		{
-			temp = head;
-			do
-			{
-				if(temp->no%10==number_of_numbers[0][i])
-					head2 = add(head2, temp->no, temp->name, temp->surname);
-				temp = temp->next;
-			}while(temp!=NULL);
-		}
-		
-		return head2;
-	
-	
+			if(temp->no%10==number_of_numbers[0][i])
+				head2 = add(head2, temp->no, temp->name, temp->surname);
+			temp = temp->next;
+		}while(temp!=NULL);
+	}
+	return head2;
 }
 
 
-struct Node *sil(Node *head, int number)
+struct Node *remove(Node *head, int number)
 {
 	Node *temp = head;
-	Node *bul = NULL;
+	Node *find = NULL;
 	int number_var = 0;
 	
 	
@@ -388,9 +385,9 @@ struct Node *sil(Node *head, int number)
 			free(head);
 			return NULL;
 		}
-		bul = head;
+		find = head;
 		head = head->next;
-		printf("\n\t%6d %s %s silindi", number, bul->name, bul->surname);
+		printf("\n\t%6d %s %s deleted", number, find->name, find->surname);
 	}
 	else
 	{
@@ -399,7 +396,7 @@ struct Node *sil(Node *head, int number)
 			if(temp->next->no==number)
 			{
 				number_var = 1;
-				bul = temp->next;
+				find = temp->next;
 				break;
 			}
 			temp = temp->next;
@@ -408,19 +405,19 @@ struct Node *sil(Node *head, int number)
 		if(number_var==1)
 		{
 			temp->next = temp->next->next;
-			printf("\n\t%6d %s %s silindi\n", number, bul->name, bul->surname);
+			printf("\n\t%6d %s %s deleted\n", number, find->name, find->surname);
 		}
 		else
-			printf("\n\t\aBöyle bir talebe yok!\n");
+			printf("\n\t\aThere is no such student!\n");
 	}
 	
-	free(bul);
+	free(find);
 	return head;
 }
 
 
 
-void bosalt(char array1[20], char array2[30])
+void clear(char array1[20], char array2[30])
 {
 	int i;
 	for(i=0;i<20;i++)
@@ -432,20 +429,20 @@ void bosalt(char array1[20], char array2[30])
 
 void selectionSort (int array[2][10])
 {
-     int i, j, enKucuk, temp;
+     int i, j, min, temp;
      for (i=0; i<9; i++)
      {
-         enKucuk = i;
+         min = i;
          for (j=i+1; j<10; j++)
-            if(array[1][j]<array[1][enKucuk])
-            	enKucuk = j;
+            if(array[1][j]<array[1][min])
+            	min = j;
          
          temp = array[0][i];
-         array[0][i] = array[0][enKucuk];
-         array[0][enKucuk] = temp;
+         array[0][i] = array[0][min];
+         array[0][min] = temp;
          
          temp = array[1][i];
-         array[1][i] = array[1][enKucuk];
-         array[1][enKucuk] = temp;
+         array[1][i] = array[1][min];
+         array[1][min] = temp;
      }
 }
