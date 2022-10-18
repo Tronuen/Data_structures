@@ -2,168 +2,168 @@
 #include<stdlib.h>
 #include<string.h>
 #include<conio.h>
-#include<locale.h>
 
 
-struct	halka *ilk2=NULL;
-int cokluk[2][10];
+struct	Node *head2 = NULL;
+int number_of_numbers[2][10];
 
 
-struct halka
+struct Node
 {
 	int no;
-	char ad[20];
-	char soyad[30];
-	struct halka *next;
+	char name[20];
+	char surname[30];
+	struct Node *next;
 };
 
 
 
-struct halka *ekle(halka *ilk, int sayi, char ilks[20], char sons[30]);
-struct halka *duzenle(halka *ilk);
-struct halka *sil(halka *ilk, int sayi);
-void bosalt(char dizi1[20], char dizi2[30]);
-void selectionSort(int dizi[2][10]);
+struct Node *add(Node *head, int number, char heads[20], char sons[30]);
+struct Node *duzenle(Node *head);
+struct Node *sil(Node *head, int number);
+void bosalt(char array1[20], char array2[30]);
+void selectionSort(int array[2][10]);
 
 
 
 main()
 {
-	setlocale(LC_ALL,"Turkish");
-	halka *ilk=NULL;
-	halka *gecici;
-	int i=0,j=0,sayi=0,s=0,no=0,bosluk_sayac=0;
-	char harf,secim,secim_2=48;
-	char isim[20], soyisim[30];
+	Node *head = NULL;
+	Node *temp;
+	int i=0, j=0, number=0, s=0, no=0, space_ct=0;
+	char letter, choice, choice_2=48;
+	char name[20], surname[30];
 	
 	for(i=0;i<10;i++)
 	{
-		cokluk[0][i]=i;
-		cokluk[1][i]=0;
+		number_of_numbers[0][i] = i;
+		number_of_numbers[1][i] = 0;
 	}
 	
-	FILE *dosya;
+	FILE *file;
 	
-	dosya=fopen("Ödev-1.txt","r");
+	file = fopen("Students.txt", "r");
 	
-	if(dosya==NULL)
+	if(file==NULL)
 	{
-		printf("\ntext dosyasý açýlamadý!");
+		printf("\nCan't open text file!");
 		getch();
 		return 0;
 	}
 	
-	while(!feof(dosya))
+	while(!feof(file))
 	{
-		harf=fgetc(dosya);
+		letter = fgetc(file);
 		
-		if(harf=='\n' || feof(dosya))
+		if(letter=='\n' || feof(file))
 		{
-			ilk=ekle(ilk,no,isim,soyisim);
+			head = add(head, no, name, surname);
 			for(i=0;i<10;i++)
-				if(cokluk[0][i]==no%10)
-					cokluk[1][i]++;
-			selectionSort(cokluk);
-			ilk=duzenle(ilk);
-			bosalt(isim,soyisim);
-			i=0;	j=0;	no=0;	bosluk_sayac=0;
+				if(number_of_numbers[0][i]==no%10)
+					number_of_numbers[1][i]++;
+					
+			selectionSort(number_of_numbers);
+			head = duzenle(head);
+			bosalt(name, surname);
+			i=0;	j=0;	no=0;	space_ct=0;
 		}
 		else
 		{
-			if(harf>='0' && harf<='9')
+			if(letter>='0' && letter<='9')
 			{
-				no=no*10+(harf-48);
+				no = no*10 + (letter-48);
 			}
-			else if(harf==' ')	bosluk_sayac++;
+			else if(letter==' ')	space_ct++;
 			else
 			{
-				if(bosluk_sayac==1)
+				if(space_ct==1)
 				{
-					isim[i]=harf;
+					name[i] = letter;
 					i++;
 				}
-				else if(bosluk_sayac==2)
+				else if(space_ct==2)
 				{
-					soyisim[j]=harf;
+					surname[j] = letter;
 					j++;
 				}
 			}
 		}
 	}
 	
-	fclose(dosya);
+	fclose(file);
 	
 	
 	
-	while(secim!=27)
+	while(choice!=27)
 	{
 		system("cls");
-		printf("\n\tMENÜ");
-		printf("\n\n e)---->Ekle");
-		printf("\n s)---->Sil");
-		printf("\n a)---->Ara");
-		printf("\n l)---->Listele\n");
-		printf("\n ESC)---->Çýkýþ\n");
+		printf("\n\tMENU");
+		printf("\n\n a)---->Add");
+		printf("\n d)---->Delete");
+		printf("\n s)---->Search");
+		printf("\n w)---->Show\n");
+		printf("\n ESC)---->Exit\n");
 		
-		secim=getch();
+		choice=getch();
 		
-		switch(secim)
+		switch(choice)
 		{
-			case 'e':
+			case 'a':
 				system("cls");
-				printf("\nSýrasýyla, eklemek istediðiniz talebenin numarasýný adýný ve soyadýný boþluk býrakarak giriniz:\n\n\t");
+				printf("\nSýrasýyla, addmek istediðiniz talebenin numarasýný nameýný ve surnameýný boþluk býrakarak giriniz:\n\n\t");
 				do
 				{
-					bosalt(isim,soyisim);
-					i=0;	j=0;	no=0;	bosluk_sayac=0;
+					bosalt(name,surname);
+					i=0;	j=0;	no=0;	space_ct=0;
 					do
 					{
-						secim_2=getche();
-						if(secim_2==27)		break;
-						else if(secim_2>=48 & secim_2<=57)
-							sayi=sayi*10+secim_2-48;
-						else if(secim_2==' ')		bosluk_sayac++;
+						choice_2 = getche();
+						if(choice_2==27)		break;
+						else if(choice_2>=48 & choice_2<=57)
+							number = number*10 + choice_2-48;
+						else if(choice_2==' ')		space_ct++;
 						else
 						{
-							if(bosluk_sayac==1)
+							if(space_ct==1)
 							{
-								isim[i]=secim_2;
+								name[i] = choice_2;
 								i++;
 							}
-							else if(bosluk_sayac==2)
+							else if(space_ct==2)
 							{
-								soyisim[j]=secim_2;
+								surname[j] = choice_2;
 								j++;
 							}
 						}
-					}while(secim_2!=13);
+					}while(choice_2!=13);
 					
-					if(secim_2==27)		break;
+					if(choice_2==27)		break;
 					
-					ilk=ekle(ilk,sayi,isim,soyisim);
+					head = add(head, number, name, surname);
 					for(i=0;i<10;i++)
-						if(cokluk[0][i]==sayi%10)
-							cokluk[1][i]++;
-					selectionSort(cokluk);
-					ilk=duzenle(ilk);
-					bosalt(isim,soyisim);
-					i=0;	j=0;	no=0;	bosluk_sayac=0;
+						if(number_of_numbers[0][i]==number%10)
+							number_of_numbers[1][i]++;
+							
+					selectionSort(number_of_numbers);
+					head = duzenle(head);
+					bosalt(name, surname);
+					i=0;	j=0;	no=0;	space_ct=0;
 					
-					printf("eklendi\n \t");
-					gecici=ilk;
+					printf("addndi\n \t");
+					temp = head;
 					
-					sayi=0;
-				}while(secim_2!=27);
+					number = 0;
+				}while(choice_2!=27);
 				
 				break;
 			
-			case 's':
+			case 'd':
 				system("cls");
 				do
 				{
-					if(ilk==NULL)
+					if(head==NULL)
 					{
-						printf("\n\tÝlk eleman bulunamadý!\n");
+						printf("\n\tÝlk eleman bulunamnameý!\n");
 						getch();
 						break;
 					}
@@ -172,32 +172,33 @@ main()
 					
 					do
 					{
-						secim_2=getche();
-						if(secim_2>=48 & secim_2<=57)
-							sayi=sayi*10+secim_2-48;
-					}while(secim_2>47 & secim_2<58);
+						choice_2 = getche();
+						if(choice_2>=48 & choice_2<=57)
+							number=number*10+choice_2-48;
+					}while(choice_2>47 & choice_2<58);
 					
-					if(secim_2==27)		break;
+					if(choice_2==27)		break;
 					
-					ilk=sil(ilk,sayi);
+					head = sil(head, number);
 					for(i=0;i<10;i++)
-						if(cokluk[0][i]==sayi%10)
-							cokluk[1][i]--;
-					selectionSort(cokluk);
-					ilk=duzenle(ilk);
+						if(number_of_numbers[0][i]==number%10)
+							number_of_numbers[1][i]--;
+							
+					selectionSort(number_of_numbers);
+					head = duzenle(head);
 					
-					sayi=0;
-				}while(secim_2!=27);
+					number = 0;
+				}while(choice_2!=27);
 			
 				break;	
 			
-			case 'a':
+			case 's':
 				system("cls");
 				do
 				{
-					if(ilk==NULL)
+					if(head==NULL)
 					{
-						printf("\n\tÝlk eleman bulunamadý!");
+						printf("\n\tÝlk eleman bulunamnameý!");
 						getch();
 						break;
 					}
@@ -206,54 +207,54 @@ main()
 					
 					do
 					{
-						secim_2=getche();
-						if(secim_2>=48 & secim_2<=57)
-							sayi=sayi*10+secim_2-48;
-					}while(secim_2>47 & secim_2<58);	
+						choice_2 = getche();
+						if(choice_2>=48 & choice_2<=57)
+							number=number*10+choice_2-48;
+					}while(choice_2>47 & choice_2<58);	
 					
-					if(secim_2==27)		break;
+					if(choice_2==27)		break;
 					
-					gecici=ilk;
+					temp = head;
 					
-					while(gecici!=NULL)
+					while(temp!=NULL)
 					{
 						s++;
-						if(gecici->no==sayi)		break;
-						gecici=gecici->next;
+						if(temp->no==number)		break;
+						temp = temp->next;
 					}
-					if(gecici==NULL)
-						printf("\n\aAradýðýnýz talebe bulunamadý\n");
+					if(temp==NULL)
+						printf("\n\aArnameýðýnýz talebe bulunamnameý\n");
 					else
-						printf("\nAradýðýnýz talebe %d adýmda bulundu = %d %s %s\n",s,gecici->no,gecici->ad,gecici->soyad);
+						printf("\nArnameýðýnýz talebe %d nameýmda bulundu = %d %s %s\n", s, temp->no, temp->name, temp->surname);
 					
-					s=0;	sayi=0;
-				}while(secim_2!=27);
+					s=0;	number=0;
+				}while(choice_2!=27);
 			
 				break;		
 			
-			case 'l':
+			case 'w':
 				system("cls");
 				do
 				{
-					if(ilk==NULL)
+					if(head==NULL)
 					{
 						printf("\n	Liste boþ!\n");
 						break;
 					}
 					
-					gecici=ilk;
+					temp = head;
 					
-					while(gecici!=NULL)
+					while(temp!=NULL)
 					{
-						printf("\n%d.eleman= %d %s %s",s+1,gecici->no,gecici->ad,gecici->soyad);
+						printf("\n%d.eleman= %d %s %s", s+1, temp->no, temp->name, temp->surname);
 						s++;
-						gecici=gecici->next;
+						temp = temp->next;
 					}
 					
-					secim_2=getch();
+					choice_2 = getch();
 					
-					s=0;
-				}while(secim_2!=27);
+					s = 0;
+				}while(choice_2!=27);
 			
 				break;
 					
@@ -262,57 +263,57 @@ main()
 	}
 	
 	
-	dosya=fopen("Ödev-1.txt","w");
+	file = fopen("Ödev-1.txt","w");
 	
-	if(dosya==NULL)
+	if(file==NULL)
 	{
-		printf("\ntext dosyasý açýlamadý!");
+		printf("\ntext filesý açýlamnameý!");
 		getch();
 		return 0;
 	}
 	
-	char sayimiz[10];
+	char numbermiz[10];
 	char *cp;
 	
-	gecici=ilk;
+	temp = head;
 	do
 	{
 		for(i=0;i<10;i++)
-			sayimiz[i]=0;
-		i=0;	
-		while(gecici->no>0)
+			numbermiz[i]=0;
+		i = 0;	
+		while(temp->no>0)
 		{
-			sayimiz[i]=gecici->no%10+48;
-			gecici->no/=10;
+			numbermiz[i] = temp->no%10 + 48;
+			temp->no /= 10;
 			i++;
 		}
 		i--;
-		cp=&sayimiz[i];
+		cp = &numbermiz[i];
   		while(*cp)
   		{
-    		fputc(*cp,dosya);
+    		fputc(*cp, file);
 			cp--;
   		}
-		fprintf(dosya," ");
-  		cp=gecici->ad;
+		fprintf(file, " ");
+  		cp = temp->name;
   		while(*cp)
   		{
-    		fputc(*cp,dosya);
+    		fputc(*cp, file);
 			cp++;
   		}
-		fprintf(dosya," ");
-  		cp=gecici->soyad;
+		fprintf(file, " ");
+  		cp = temp->surname;
   		while(*cp)
   		{
-    		fputc(*cp,dosya);
+    		fputc(*cp, file);
 			cp++;
   		}
-  		if(gecici->next!=NULL)
-			fprintf(dosya,"\n");
-		gecici=gecici->next;
-	}while(gecici!=NULL);
+  		if(temp->next!=NULL)
+			fprintf(file, "\n");
+		temp = temp->next;
+	}while(temp!=NULL);
 	
-	fclose(dosya);
+	fclose(file);
 	return 0;
 }
 
@@ -321,130 +322,130 @@ main()
 //**********************************************************************************************************************************************************
 
 
-struct halka *ekle(halka *ilk, int sayi, char ilks[20], char sons[30])
+struct Node *add(Node *head, int number, char heads[20], char sons[30])
 {
-	halka *yeni=(struct halka*)malloc(sizeof(struct halka));
-	yeni->no=sayi;
-	strcpy(yeni->ad,ilks);
-	strcpy(yeni->soyad,sons);
-	yeni->next=NULL;
+	Node *nevv = (struct Node*)malloc(sizeof(struct Node));
+	nevv->no = number;
+	strcpy(nevv->name, heads);
+	strcpy(nevv->surname, sons);
+	nevv->next = NULL;
 	
 	
-	if(ilk==NULL)
+	if(head==NULL)
 	{
-		ilk=yeni;
-		return ilk;
+		head = nevv;
+		return head;
 	}
 	else
 	{
-		halka *gecici=ilk;
+		Node *temp = head;
 		
-		while(gecici->next!=NULL)
-			gecici=gecici->next;
-		gecici->next=yeni;
-		return ilk;
+		while(temp->next!=NULL)
+			temp = temp->next;
+		temp->next = nevv;
+		return head;
 	}
 	
 
 }
 
 
-struct halka *duzenle(halka *ilk)
+struct Node *duzenle(Node *head)
 {
 	int i;
-	halka *gecici=ilk;
-	halka *ilk2=NULL;
+	Node *temp = head;
+	Node *head2 = NULL;
 	
 	
 		for(i=9;i>=0;i--)
 		{
-			gecici=ilk;
+			temp = head;
 			do
 			{
-				if(gecici->no%10==cokluk[0][i])
-					ilk2=ekle(ilk2,gecici->no,gecici->ad,gecici->soyad);
-				gecici=gecici->next;
-			}while(gecici!=NULL);
+				if(temp->no%10==number_of_numbers[0][i])
+					head2 = add(head2, temp->no, temp->name, temp->surname);
+				temp = temp->next;
+			}while(temp!=NULL);
 		}
 		
-		return ilk2;
+		return head2;
 	
 	
 }
 
 
-struct halka *sil(halka *ilk, int sayi)
+struct Node *sil(Node *head, int number)
 {
-	halka *gecici=ilk;
-	halka *bul=NULL;
-	int sayi_var=0;
+	Node *temp = head;
+	Node *bul = NULL;
+	int number_var = 0;
 	
 	
-	if(gecici->no==sayi)
+	if(temp->no==number)
 	{
-		if(ilk->next==NULL)
+		if(head->next==NULL)
 		{
-			free(ilk);
+			free(head);
 			return NULL;
 		}
-		bul=ilk;
-		ilk=ilk->next;
-		printf("\n\t%6d %s %s silindi",sayi,bul->ad,bul->soyad);
+		bul = head;
+		head = head->next;
+		printf("\n\t%6d %s %s silindi", number, bul->name, bul->surname);
 	}
 	else
 	{
-		while(gecici->next!=NULL)
+		while(temp->next!=NULL)
 		{
-			if(gecici->next->no==sayi)
+			if(temp->next->no==number)
 			{
-				sayi_var=1;
-				bul=gecici->next;
+				number_var = 1;
+				bul = temp->next;
 				break;
 			}
-			gecici=gecici->next;
+			temp = temp->next;
 		}
 	
-		if(sayi_var==1)
+		if(number_var==1)
 		{
-			gecici->next=gecici->next->next;
-			printf("\n\t%6d %s %s silindi\n",sayi,bul->ad,bul->soyad);
+			temp->next = temp->next->next;
+			printf("\n\t%6d %s %s silindi\n", number, bul->name, bul->surname);
 		}
 		else
 			printf("\n\t\aBöyle bir talebe yok!\n");
 	}
 	
 	free(bul);
-	return ilk;
+	return head;
 }
 
 
 
-void bosalt(char dizi1[20], char dizi2[30])
+void bosalt(char array1[20], char array2[30])
 {
 	int i;
 	for(i=0;i<20;i++)
-		dizi1[i]=0;
+		array1[i] = 0;
 	for(i=0;i<20;i++)
-		dizi2[i]=0;
+		array2[i] = 0;
 }
 
 
-void selectionSort (int dizi[2][10])
+void selectionSort (int array[2][10])
 {
      int i, j, enKucuk, temp;
      for (i=0; i<9; i++)
      {
          enKucuk = i;
          for (j=i+1; j<10; j++)
-            if(dizi[1][j]<dizi[1][enKucuk])
+            if(array[1][j]<array[1][enKucuk])
             	enKucuk = j;
          
-         temp = dizi[0][i];
-         dizi[0][i] = dizi[0][enKucuk];
-         dizi[0][enKucuk] = temp;
+         temp = array[0][i];
+         array[0][i] = array[0][enKucuk];
+         array[0][enKucuk] = temp;
          
-         temp = dizi[1][i];
-         dizi[1][i] = dizi[1][enKucuk];
-         dizi[1][enKucuk] = temp;
+         temp = array[1][i];
+         array[1][i] = array[1][enKucuk];
+         array[1][enKucuk] = temp;
      }
 }
