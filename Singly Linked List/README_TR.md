@@ -1,8 +1,11 @@
 
 # <div align="center"><p>Tek Yönlü Bağlı Liste Uygulaması</p> </div>
 
+## Özet
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Bu uygulama bağlı liste kullanarak ekleme, silme, listeleme gibi işlemleri yapar. Ayrıca dosyadan veri okuma ve dosyaya veri yazma işlemlerini de kullanır.\
+Bu uygulama tek yönlü bağlı liste kullanarak ekleme, silme, listeleme gibi işlemleri yapar. Ayrıca dosyadan veri okuma ve dosyaya veri yazma işlemlerini de kullanır.
+
+## Detaylar
 Bu uygulamada yapılacak olan şeyler detaylı olarak şu şekildedir:\
 \
 __1- Ekleme İşlemi:__ Programımız çalıştığında ilk olarak her bir satırda bir kaydın bulunduğu text dosyadaki
