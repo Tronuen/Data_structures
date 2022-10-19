@@ -1,9 +1,12 @@
 
-# <div align="center"><p>Tek Yönlü Bağlı Liste Uygulaması</p> </div>
+# <div align="center"><p>Singly Linked List</p> </div>
 
+## Summary
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Bu uygulama bağlı liste kullanarak ekleme, silme, listeleme gibi işlemleri yapar. Ayrıca dosyadan veri okuma ve dosyaya veri yazma işlemlerini de kullanır.\
-Bu uygulamada yapılacak olan şeyler detaylı olarak şu şekildedir:\
+This study performs operations such as adding, deleting, listing with a single linked list. It also uses the operations of data read from and data write to file.
+
+## Details
+The details of this study are as follows:\
 \
 __1- Ekleme İşlemi:__ Programımız çalıştığında ilk olarak her bir satırda bir kaydın bulunduğu text dosyadaki
 verileri tek yönlü bağlı liste yapısına ekleyecektir. Ekleme işlemi numara bilgisinin son hanesi temel
