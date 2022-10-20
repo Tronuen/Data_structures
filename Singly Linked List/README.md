@@ -8,12 +8,7 @@ This study performs operations such as adding, deleting, listing with a single l
 ## Details
 The details of this study are as follows:\
 \
-__1- Adding:__ When our program runs, it first adds the data in the text file with a record in each line to singly linked list. Addition will be made based on the last digit of the number information. Elements of the list should be dynamic added to the list in such a way that the last digit of the number information decreases from the most value to the least value.
-
-Listedeki elemanlar numara bilgisinin son hanesi en fazla olan değere göre azalacak şekilde dinamik bir şekilde listeye eklenmelidir. 
-azalacak şekilde dinamik bir şekilde listeye eklenmelidir. Ayrı ca text dosya haricinde kullanıcı da
-menü aracılığıyla kayıt ekleyebilmelidir.
-Örneğin text dosya içeriği aşağıdaki gibi olsun:\
+__1- Adding:__ When our program runs, it first adds the data in the text file with a record in each line to singly linked list. Addition will be made based on the last digit of the number information. Elements of the list should be dynamic added to the list in such a way that the last digit of the number information decreases from the most number to the least number. Also without text file, user can add record via the menu. For example, the text file content is as follows:  
 58 Ali Demir\
 16 Fatma Verimli\
 26 Ayşe Korkmaz\
@@ -21,19 +16,19 @@ menü aracılığıyla kayıt ekleyebilmelidir.
 471 Osman Çetin
 
 
-1. satır okunduğunda bağlı liste aşağıdaki gibi oluşacaktır (8 ile biten 1 adet eleman vardır).  
+1. When the 1st line is read, the linked list will be as follows (There is 1 element that ending with 8):
   
     **[ 58 ][ Ali ][ Demir ]** ➜ Null  
-2. satır okunduğunda bağlı liste aşağıdaki gibi oluşacaktır (8 ile biten 1 adet, 6 ile biten 1 adet eleman vardır).  
+2. When the 2nd line is read, the linked list will be as follows (There is 1 element ending with 8 and 1 element ending with 6):  
   
     [ 58 ][ Ali ][ Demir ] ➜ **[ 16 ][ Fatma ][ Verimli ]** ➜ Null  
-3. satır okunduğunda bağlı liste aşağıdaki gibi oluşacaktır (6 ile biten 2 eleman, 8 ile biten 1 eleman vardır).  
+3. When the 3rd line is read, the linked list will be as follows (There are 2 elements ending with 6 and 1 element ending with 8):  
   
     [ 16 ][ Fatma ][ Verimli ] ➜ **[ 26 ][ Ayse ][ Korkmaz ]** ➜ [ 58 ][ Ali ][ Demir ] ➜ Null  
-4. satır okunduğunda bağlı liste aşağıdaki gibi oluşacaktır (6 ile biten 2 eleman, 8 ile biten 2 eleman vardır).  
+4. When the 4th line is read, the linked list will be as follows (There are 2 elements ending with 6 and 2 elements ending with 8): 
   
     [ 16 ][ Fatma ][ Verimli ] ➜ [ 26 ][ Ayse ][ Korkmaz ] ➜ [ 58 ][ Ali ][ Demir ] ➜ **[ 38 ][ Naci ][ Mutlu ]** ➜ Null  
-5. satır okunduğunda bağlı liste aşağıdaki gibi oluşacaktır (6 ile biten 2 eleman, 8 ile biten 2 eleman, 1 ile biten 1 eleman vardır).  
+5. When the 5th line is read, the linked list will be as follows (There are 2 elements ending with 6, 2 elements ending with 8 and 1 element ending with 1):  
   
     [ 16 ][ Fatma ][ Verimli ] ➜ [ 26 ][ Ayse ][ Korkmaz ] ➜ [ 58 ][ Ali ][ Demir ] ➜ [ 38 ][ Naci ][ Mutlu ] ➜ **[ 471 ][ Osman ][ Cetin ]** ➜ Null  
   
