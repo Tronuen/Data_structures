@@ -33,19 +33,13 @@ __1- Adding:__ When our program runs, it first adds the data in the text file wi
     [ 16 ][ Fatma ][ Verimli ] ➜ [ 26 ][ Ayse ][ Korkmaz ] ➜ [ 58 ][ Ali ][ Demir ] ➜ [ 38 ][ Naci ][ Mutlu ] ➜ **[ 471 ][ Osman ][ Cetin ]** ➜ Null  
   
   \
-__2- Searching:__ Kullanıcının girdiği numara bilgisine göre bağlı listede eleman aranacaktır ve kaç
-adımda bulunduğu listelenecektir. Listede olmayan bir eleman arandığında başarısız arama bilgisi
-verilecektir.  
-Örneğin Ekleme işleminde verilen örneğin son hali için 58 arandığında 3 adımda ulaşıldığı bilgisi
-verilecektir.  
-
-__3- Listing:__ Bağlı listedeki elemanlar baştan sona listelenecektir.  
-
-__4- Deletion:__ Kullanıcının girdiği numara bilgisine göre bağlı listeden eleman silinecektir. Silme
-sonucunda silinen numara değerinin son hanesi adetine göre liste gerekiyorsa yeniden düzenlenmelidir.
-Örneğin Ekleme işleminde verilen örneğin son hali için 471 elemanı silinirse liste sıralaması
-değişmeyecektir. Fakat 26 elemanı silinmek istenirse listede en fazla son hanesi 8 ile biten elemanlar
-olacağı için listenin son hali şu şekilde olacaktır:  
+__2- Searching:__ According to the number information entered by the user, the element will be searched in the linked list and the number of steps will be listed. Failed search information will be given when an element not in the list is searched.  
+For example, when 58 is searched in the Add process, it will be informed that it has been reached in 3 steps.  
+  
+__3- Listing:__ Elements in the linked list will be listed from beginning to end.  
+  
+__4- Deletion:__ The element will be deleted from the linked list according to the number information entered by the user. If necessary, the list should be rearranged according to the number of last digits of the deleted number value as a result of deletion. For example, if the 471 element is deleted for the final version of the sample given in the Add operation, the list order will not change. However, if 26 is desired to be deleted, the final state of the list will be as follows, as there will be elements whose last digit ends with 8 at most:  
+  \
     [ 58 ][ Ali ][ Demir ] ➜ [ 38 ][ Naci ][ Mutlu ] ➜ [ 16 ][ Fatma ][ Verimli ] ➜ [ 471 ][ Osman ][ Cetin ] ➜ Null  
-
-__5- Exit:__ Bağlı listenin en son haline göre listedeki elemanlar text dosyaya sırayla yazılacaktır.
+  \
+__5- Exit:__ According to the latest version of the linked list, the elements in the list will be written to the text file in order.
